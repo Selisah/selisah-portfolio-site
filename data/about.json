@@ -1,23 +1,6 @@
 {
-  "heading": "About Me",
-  "intro": "I am Selisah Mensah, a software engineer focused on building practical web tools that are accessible, reliable, and easy to use.",
-  "highlights": [
-    "Enjoys working across frontend and backend workflows.",
-    "Interested in data-informed product decisions.",
-    "Prioritizes clean documentation and testable features."
-  ],
-  "facts": [
-    {
-      "label": "Location",
-      "value": "Accra, Ghana"
-    },
-    {
-      "label": "Focus",
-      "value": "Web Development and Product Engineering"
-    },
-    {
-      "label": "Availability",
-      "value": "Open to internships and entry-level software roles"
-    }
-  ]
+  "heading": "About Yourself",
+  "intro": "",
+  "highlights": [],
+  "facts": []
 }

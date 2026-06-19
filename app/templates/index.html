@@ -4,24 +4,84 @@
 
 {% block content %}
 <section class="page-section home-page">
-    <section class="hero" aria-label="Hero">
-        <div class="profile hero-card">
-            <div id="profile-picture" class="profile-picture hero-picture">
-                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Profile photo of Selisah">
-            </div>
+    <section id="photo" class="hero" aria-label="Photo section">
+        <div class="hero-card">
             <h1 class="hero-title">{{ title }}</h1>
+            <p class="empty-state">Photo placeholder: add your photo when ready.</p>
         </div>
     </section>
 
-    <section class="quick-links" aria-label="Quick links">
-        {% for item in nav_items %}
-        {% if item.route != '/' %}
-        <a class="quick-link-card" href="{{ item.route }}">
-            <h2>{{ item.label }}</h2>
-            <p>Go to the {{ item.label | lower }} page.</p>
-        </a>
-        {% endif %}
+    <section id="about" class="page-section">
+        <h2>{{ about.heading or "About Yourself" }}</h2>
+        <p class="section-intro">{{ about.intro or "Add your about section details here." }}</p>
+    </section>
+
+    <section id="work" class="page-section">
+        <h2>{{ work.heading or "Work Experiences" }}</h2>
+        {% if work.roles %}
+        {% for role in work.roles %}
+        <article class="content-card">
+            <h3>{{ role.title }}</h3>
+            <p><strong>Organization:</strong> {{ role.organization }}</p>
+            <p><strong>Location:</strong> {{ role.location }}</p>
+            <p><strong>Period:</strong> {{ role.period }}</p>
+        </article>
         {% endfor %}
+        {% else %}
+        <p class="empty-state">No work experiences added yet.</p>
+        {% endif %}
+    </section>
+
+    <section id="education" class="page-section application-section">
+        <h2>Education Application</h2>
+        {% if education.profile_summary %}
+        <p class="section-intro">{{ education.profile_summary }}</p>
+        {% endif %}
+        <section>
+            <h3>Current Education</h3>
+            {% if education.current_education %}
+            {% for item in education.current_education %}
+            <article class="application-card">
+                <h4>{{ item.school_name }}</h4>
+                <p><strong>Program:</strong> {{ item.program_or_level }}</p>
+                <p><strong>Location:</strong> {{ item.location }}</p>
+                <p><strong>GPA:</strong> {{ item.gpa }}</p>
+                <p><strong>Classification:</strong> {{ item.classification }}</p>
+                <p><strong>Coursework:</strong> {{ (item.coursework or []) | join(", ") or "Not provided" }}</p>
+                <p><strong>Extracurriculars:</strong> {{ (item.extracurriculars or []) | join(", ") or "Not provided" }}</p>
+            </article>
+            {% endfor %}
+            {% else %}
+            <p class="empty-state">No current education entries.</p>
+            {% endif %}
+        </section>
+    </section>
+
+    <section id="hobbies" class="page-section">
+        <h2>{{ hobbies.heading or "Hobbies" }}</h2>
+        {% set hobby_items = hobbies.get("items", []) %}
+        {% if hobby_items %}
+        {% for hobby in hobby_items %}
+        <article class="content-card">
+            <h3>{{ hobby.name }}</h3>
+            <p>{{ hobby.description }}</p>
+        </article>
+        {% endfor %}
+        {% else %}
+        <p class="empty-state">No hobbies added yet.</p>
+        {% endif %}
+    </section>
+
+    <section id="map" class="page-section">
+        <h2>Map</h2>
+        <p class="section-intro">Sketch map with your selected locations.</p>
+        <div
+            id="map-root"
+            class="map-root"
+            data-outline-color="{{ map_payload.get('map_style', {}).get('outline_color', '#66BB6A') }}"
+        ></div>
+        <script id="map-payload" type="application/json">{{ map_payload | tojson }}</script>
+        <script src="{{ url_for('static', filename='js/map-renderer.js') }}" defer></script>
     </section>
 </section>
 {% endblock %}

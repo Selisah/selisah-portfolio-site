@@ -14,7 +14,35 @@ def inject_nav_items():
 
 @app.route('/')
 def index():
-    return render_template('index.html', title="MLH Fellow", url=os.getenv("URL"))
+    about_payload = load_json_file("about.json", fallback={})
+    work_payload = load_json_file("work.json", fallback={})
+    education_payload = load_json_file("education.json", fallback={})
+    hobbies_payload = load_json_file("hobbies.json", fallback={})
+
+    fallback_map_payload = {
+        "map_style": {
+            "outline_color": "#66BB6A",
+            "background_color": "#FFFFFF",
+            "marker_color": "#E02424",
+            "connector_style": "dotted",
+        },
+        "locations": [],
+        "connections": [],
+    }
+    map_payload = load_json_file("map_locations.json", fallback=fallback_map_payload)
+    if not isinstance(map_payload, dict):
+        map_payload = dict(fallback_map_payload)
+
+    return render_template(
+        'index.html',
+        title="Portfolio",
+        url=os.getenv("URL"),
+        about=about_payload,
+        work=work_payload,
+        education=education_payload,
+        hobbies=hobbies_payload,
+        map_payload=map_payload,
+    )
 
 
 @app.route('/about')
