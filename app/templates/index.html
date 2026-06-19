@@ -36,5 +36,44 @@
         </div>
         <h1>{{ title }}</h1>
     </div>
+
+    <main class="content">
+        <section class="section">
+            <h2>Work Experience</h2>
+            <div class="card-grid">
+                {% for experience in work_experiences %}
+                <article class="card">
+                    <h3>{{ experience.role }}</h3>
+                    <p class="card-subtitle">{{ experience.company }} · {{ experience.duration }}</p>
+                    <p>{{ experience.description }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Education</h2>
+            <div class="card-grid">
+                {% for education in education_history %}
+                <article class="card">
+                    <h3>{{ education.degree }}</h3>
+                    <p class="card-subtitle">{{ education.school }} · {{ education.duration }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Hobbies</h2>
+            <div class="card-grid">
+                {% for hobby in hobbies %}
+                <article class="card">
+                    <h3>{{ hobby.name }}</h3>
+                    <p>{{ hobby.description }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 </body>
 </html>
