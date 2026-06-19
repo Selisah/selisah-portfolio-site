@@ -1,5 +1,19 @@
+:root {
+    --font-body: "Plus Jakarta Sans", sans-serif;
+    --font-heading: "Outfit", sans-serif;
+}
+
 p, h1, h2, h3, h4, h5, h6, button, a {
-    font-family: "Roboto", serif;
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6,
+.hero h1,
+.nav-dropdown__toggle,
+.team-card__name,
+.social-link__label,
+.portfolio-section h2 {
+    font-family: var(--font-heading);
 }
 
 body {
@@ -7,7 +21,7 @@ body {
     background-size: cover;
     width: auto;
     overflow-x: hidden;
-    font-family: "Roboto", serif;
+    font-family: var(--font-body);
     margin: 0;
     color: #1f2937;
 }
@@ -20,7 +34,7 @@ a {
 .nav-bar {
     width: 100%;
     background-color: #1C539F;
-    font-family: "Roboto", serif;
+    font-family: var(--font-body);
     font-weight: 700 !important;
     padding: 10px 0;
 }
@@ -146,6 +160,7 @@ a {
     margin: 0 0 12px;
     font-size: 48px;
     font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .hero p {
@@ -232,6 +247,7 @@ a {
     font-weight: 700;
     color: white;
     margin: 0;
+    letter-spacing: -0.02em;
 }
 
 .profile-subtitle {
@@ -270,6 +286,7 @@ a {
     margin: 0 0 20px;
     padding-bottom: 8px;
     border-bottom: 3px solid #dbeafe;
+    letter-spacing: -0.01em;
 }
 
 .portfolio-section p {
@@ -281,6 +298,103 @@ a {
     color: #6b7280;
     font-style: italic;
     margin: 0;
+}
+
+.social-links {
+    margin-top: 28px;
+    text-align: center;
+}
+
+.social-links__heading {
+    margin: 0 0 14px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.social-links__cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+}
+
+.social-link--linkedin:hover {
+    box-shadow: 0 8px 24px rgba(10, 102, 194, 0.18);
+    border-color: #bfdbfe;
+}
+
+.social-link--github:hover {
+    box-shadow: 0 8px 24px rgba(36, 41, 47, 0.18);
+    border-color: #d1d5db;
+}
+
+.social-link__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.social-link--linkedin .social-link__icon {
+    background: #0a66c2;
+}
+
+.social-link--github .social-link__icon {
+    background: #24292f;
+}
+
+.social-link__icon svg {
+    width: 22px;
+    height: 22px;
+    fill: white;
+}
+
+.social-link__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.social-link__label {
+    color: #111827;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.social-link__hint {
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.social-link--linkedin:hover .social-link__label {
+    color: #0a66c2;
+}
+
+.social-link--github:hover .social-link__label {
+    color: #24292f;
 }
 
 .photo-grid,

@@ -30,6 +30,25 @@ JESSICA = {
     "name": "Jessica Nguyen",
     "title": "MLH Fellow",
     "avatar": "jessica-picture.jpg",
+    "about": (
+        "Hi! My name is Jessica and I'm a recent CS graduate from the "
+        "University of Houston. I'm passionate about solving real-world "
+        "problems, while inspiring others to pursue their passions in STEM."
+    ),
+    "links": [
+        {
+            "label": "LinkedIn",
+            "url": "https://www.linkedin.com/in/jessicaknguyen04/",
+            "platform": "linkedin",
+            "hint": "View my profile",
+        },
+        {
+            "label": "GitHub",
+            "url": "https://github.com/jessicangu",
+            "platform": "github",
+            "hint": "See my projects",
+        },
+    ],
 }
 
 PORTFOLIO_SECTIONS = [
