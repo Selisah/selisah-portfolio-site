@@ -1,40 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="Personal Portfolio">
-    <meta property="og:description" content="My Personal Portfolio">
-    <meta property="og:url" content="{{ url }}">
+{% block title %}{{ title }}{% endblock %}
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
-
-    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
-    <title>{{ title }}</title>
-</head>
-
-<body>
-    <header class="nav-bar">
-        <div class="nav-content">
-            <a href="/">
-                <div class="nav-logo">
-                    <img src="./static/img/logo.svg" />
-                </div>
-            </a>
+{% block content %}
+<section class="page-section home-page">
+    <section class="hero" aria-label="Hero">
+        <div class="profile hero-card">
+            <div id="profile-picture" class="profile-picture hero-picture">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Profile photo of Selisah">
+            </div>
+            <h1 class="hero-title">{{ title }}</h1>
         </div>
-    </header>
+    </section>
 
-    <div class="profile">
-        <div id="profile-picture" class="profile-picture">
-            <img src="./static/img/logo.jpg">
-        </div>
-        <h1>{{ title }}</h1>
-    </div>
-</body>
-</html>
+    <section class="quick-links" aria-label="Quick links">
+        {% for item in nav_items %}
+        {% if item.route != '/' %}
+        <a class="quick-link-card" href="{{ item.route }}">
+            <h2>{{ item.label }}</h2>
+            <p>Go to the {{ item.label | lower }} page.</p>
+        </a>
+        {% endif %}
+        {% endfor %}
+    </section>
+</section>
+{% endblock %}

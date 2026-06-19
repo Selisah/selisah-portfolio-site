@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Hobbies{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1>{{ hobbies.heading or "Hobbies" }}</h1>
+    {% if hobbies.intro %}
+    <p class="section-intro">{{ hobbies.intro }}</p>
+    {% endif %}
+
+    {% set hobby_items = hobbies.get("items", []) %}
+    {% if hobby_items %}
+    {% for hobby in hobby_items %}
+    <article class="content-card">
+        <h2>{{ hobby.name }}</h2>
+        <p>{{ hobby.description }}</p>
+        {% if hobby.details %}
+        <ul class="content-list">
+            {% for detail in hobby.details %}
+            <li>{{ detail }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </article>
+    {% endfor %}
+    {% else %}
+    <p class="empty-state">No hobbies listed yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

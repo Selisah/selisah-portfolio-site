@@ -1,0 +1,30 @@
+{
+  "heading": "Hobbies",
+  "intro": "Outside of coursework and projects, I invest time in creative and community-focused activities.",
+  "items": [
+    {
+      "name": "Reading",
+      "description": "I enjoy books on product thinking, technology, and leadership.",
+      "details": [
+        "Reads 1-2 books per month.",
+        "Maintains notes and action items from each book."
+      ]
+    },
+    {
+      "name": "Photography",
+      "description": "I capture city scenes and campus events.",
+      "details": [
+        "Focus on color and storytelling through composition.",
+        "Occasionally volunteers to document student events."
+      ]
+    },
+    {
+      "name": "Community Mentoring",
+      "description": "I mentor beginner developers through short practical sessions.",
+      "details": [
+        "Covers fundamentals like Git, APIs, and testing.",
+        "Helps peers build confidence by shipping small projects."
+      ]
+    }
+  ]
+}

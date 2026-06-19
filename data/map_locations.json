@@ -1,0 +1,60 @@
+{
+  "map_style": {
+    "outline_color": "#66BB6A",
+    "background_color": "#FFFFFF",
+    "marker_color": "#E02424",
+    "connector_style": "dotted"
+  },
+  "locations": [
+    {
+      "id": "accra",
+      "name": "Accra",
+      "country": "Ghana",
+      "lat": 5.6037,
+      "lng": -0.187,
+      "label": "Home Base",
+      "note": "Raised in Accra and built early coding foundations."
+    },
+    {
+      "id": "kumasi",
+      "name": "Kumasi",
+      "country": "Ghana",
+      "lat": 6.6885,
+      "lng": -1.6244,
+      "label": "Family Ties",
+      "note": "Frequent visits and community projects."
+    },
+    {
+      "id": "london",
+      "name": "London",
+      "country": "United Kingdom",
+      "lat": 51.5072,
+      "lng": -0.1276,
+      "label": "Global Exposure",
+      "note": "Technology workshops and networking events."
+    },
+    {
+      "id": "new-york",
+      "name": "New York",
+      "country": "United States",
+      "lat": 40.7128,
+      "lng": -74.006,
+      "label": "Career Growth",
+      "note": "Professional conferences and mentorship programs."
+    }
+  ],
+  "connections": [
+    {
+      "from_id": "accra",
+      "to_id": "kumasi"
+    },
+    {
+      "from_id": "accra",
+      "to_id": "london"
+    },
+    {
+      "from_id": "london",
+      "to_id": "new-york"
+    }
+  ]
+}

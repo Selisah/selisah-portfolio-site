@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1>{{ about.heading or "About" }}</h1>
+    {% if about.intro %}
+    <p class="section-intro">{{ about.intro }}</p>
+    {% endif %}
+
+    {% if about.highlights %}
+    <article class="content-card">
+        <h2>Highlights</h2>
+        <ul class="content-list">
+            {% for highlight in about.highlights %}
+            <li>{{ highlight }}</li>
+            {% endfor %}
+        </ul>
+    </article>
+    {% endif %}
+
+    {% if about.facts %}
+    <article class="content-card">
+        <h2>Quick Facts</h2>
+        <ul class="fact-list">
+            {% for fact in about.facts %}
+            <li><strong>{{ fact.label }}:</strong> {{ fact.value }}</li>
+            {% endfor %}
+        </ul>
+    </article>
+    {% endif %}
+</section>
+{% endblock %}

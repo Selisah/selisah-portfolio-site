@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Work{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1>{{ work.heading or "Work" }}</h1>
+    {% if work.summary %}
+    <p class="section-intro">{{ work.summary }}</p>
+    {% endif %}
+
+    {% if work.roles %}
+    {% for role in work.roles %}
+    <article class="content-card">
+        <h2>{{ role.title }}</h2>
+        <p><strong>Organization:</strong> {{ role.organization }}</p>
+        <p><strong>Location:</strong> {{ role.location }}</p>
+        <p><strong>Period:</strong> {{ role.period }}</p>
+        {% if role.highlights %}
+        <ul class="content-list">
+            {% for item in role.highlights %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </article>
+    {% endfor %}
+    {% else %}
+    <p class="empty-state">No work entries available yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Map{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1>Map</h1>
+    <p class="section-intro">A sketch-style view of locations and travel links.</p>
+    <div
+        id="map-root"
+        class="map-root"
+        data-outline-color="{{ map_payload.get('map_style', {}).get('outline_color', '#66BB6A') }}"
+    ></div>
+    <script id="map-payload" type="application/json">{{ map_payload | tojson }}</script>
+    <script src="{{ url_for('static', filename='js/map-renderer.js') }}" defer></script>
+</section>
+{% endblock %}

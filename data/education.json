@@ -1,0 +1,75 @@
+{
+  "profile_summary": "Application profile with current and past education plus leadership and professional experience.",
+  "current_education": [
+    {
+      "school_name": "Example University",
+      "location": "Accra, Ghana",
+      "program_or_level": "BSc Computer Science",
+      "classification": "First Class",
+      "gpa": "3.85/4.0",
+      "start_date": "2022-09",
+      "grad_date": "2026-06",
+      "status": "Current",
+      "coursework": [
+        "Data Structures",
+        "Operating Systems",
+        "Database Systems",
+        "Software Engineering"
+      ],
+      "extracurriculars": [
+        "Robotics Club",
+        "Hackathon Team"
+      ],
+      "highlights": [
+        "Dean's List (3x)",
+        "Best Capstone Pitch"
+      ]
+    }
+  ],
+  "past_education": [
+    {
+      "school_name": "Example Senior High School",
+      "location": "Accra, Ghana",
+      "program_or_level": "Science Track",
+      "classification": "Distinction",
+      "gpa": "N/A",
+      "start_date": "2019-09",
+      "grad_date": "2022-06",
+      "status": "Completed",
+      "coursework": [
+        "Mathematics",
+        "Physics",
+        "Chemistry"
+      ],
+      "extracurriculars": [
+        "STEM Club",
+        "Debate Team"
+      ],
+      "highlights": [
+        "Science Fair Finalist"
+      ]
+    }
+  ],
+  "campus_positions": [
+    {
+      "title": "Teaching Assistant",
+      "organization": "Computer Science Department",
+      "period": "2024-09 - Present",
+      "details": [
+        "Supports programming lab sessions.",
+        "Guides first-year students through debugging exercises."
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "title": "Part-time IT Support Assistant",
+      "organization": "TechBridge Services",
+      "period": "2023-06 - 2024-08",
+      "details": [
+        "Resolved software setup and account issues.",
+        "Documented recurring problems for faster triage."
+      ]
+    }
+  ]
+}

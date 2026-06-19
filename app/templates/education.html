@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Education{% endblock %}
+
+{% block content %}
+<section class="page-section application-section">
+    <h1>Education Application</h1>
+    {% if education.profile_summary %}
+    <p class="section-intro">{{ education.profile_summary }}</p>
+    {% endif %}
+
+    <section>
+        <h2>Current Education</h2>
+        {% if education.current_education %}
+        {% for item in education.current_education %}
+        <article class="application-card">
+            <h3>{{ item.school_name }}</h3>
+            <p><strong>Program:</strong> {{ item.program_or_level }}</p>
+            <p><strong>Location:</strong> {{ item.location }}</p>
+            <p><strong>Status:</strong> {{ item.status }}</p>
+            <p><strong>Start Date:</strong> {{ item.start_date }}</p>
+            <p><strong>Graduation Date:</strong> {{ item.grad_date }}</p>
+            <p><strong>GPA:</strong> {{ item.gpa }}</p>
+            <p><strong>Classification:</strong> {{ item.classification }}</p>
+            <p><strong>Coursework:</strong> {{ (item.coursework or []) | join(", ") or "Not provided" }}</p>
+            <p><strong>Extracurriculars:</strong> {{ (item.extracurriculars or []) | join(", ") or "Not provided" }}</p>
+            {% if item.highlights %}
+            <ul class="content-list">
+                {% for highlight in item.highlights %}
+                <li>{{ highlight }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </article>
+        {% endfor %}
+        {% else %}
+        <p class="empty-state">No current education entries.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Past Education</h2>
+        {% if education.past_education %}
+        {% for item in education.past_education %}
+        <article class="application-card">
+            <h3>{{ item.school_name }}</h3>
+            <p><strong>Program:</strong> {{ item.program_or_level }}</p>
+            <p><strong>Location:</strong> {{ item.location }}</p>
+            <p><strong>Status:</strong> {{ item.status }}</p>
+            <p><strong>Start Date:</strong> {{ item.start_date }}</p>
+            <p><strong>Graduation Date:</strong> {{ item.grad_date }}</p>
+            <p><strong>GPA:</strong> {{ item.gpa }}</p>
+            <p><strong>Classification:</strong> {{ item.classification }}</p>
+            <p><strong>Coursework:</strong> {{ (item.coursework or []) | join(", ") or "Not provided" }}</p>
+            <p><strong>Extracurriculars:</strong> {{ (item.extracurriculars or []) | join(", ") or "Not provided" }}</p>
+            {% if item.highlights %}
+            <ul class="content-list">
+                {% for highlight in item.highlights %}
+                <li>{{ highlight }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </article>
+        {% endfor %}
+        {% else %}
+        <p class="empty-state">No past education entries.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Campus Positions</h2>
+        {% if education.campus_positions %}
+        {% for role in education.campus_positions %}
+        <article class="application-card">
+            <h3>{{ role.title }}</h3>
+            <p><strong>Organization:</strong> {{ role.organization }}</p>
+            <p><strong>Period:</strong> {{ role.period }}</p>
+            {% if role.details %}
+            <ul class="content-list">
+                {% for detail in role.details %}
+                <li>{{ detail }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </article>
+        {% endfor %}
+        {% else %}
+        <p class="empty-state">No campus position entries.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Jobs</h2>
+        {% if education.jobs %}
+        {% for job in education.jobs %}
+        <article class="application-card">
+            <h3>{{ job.title }}</h3>
+            <p><strong>Organization:</strong> {{ job.organization }}</p>
+            <p><strong>Period:</strong> {{ job.period }}</p>
+            {% if job.details %}
+            <ul class="content-list">
+                {% for detail in job.details %}
+                <li>{{ detail }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </article>
+        {% endfor %}
+        {% else %}
+        <p class="empty-state">No job entries.</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

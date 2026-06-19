@@ -72,6 +72,18 @@ You'll now be able to access the website at `localhost:5000` or `127.0.0.1:5000`
 
 *Note: The portfolio site will only work on your local machine while you have it running inside of your terminal. We'll go through how to host it in the cloud in the next few weeks!* 
 
+## Data files and map styling
+
+Page content and navigation are loaded from JSON files in `data/`:
+- `about.json`
+- `work.json`
+- `education.json`
+- `hobbies.json`
+- `map_locations.json`
+- `site_nav.json`
+
+The map is intentionally styled with a white background, a light-green outline (`#66BB6A`), red markers, and dotted explicit connections between selected locations.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

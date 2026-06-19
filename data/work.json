@@ -1,0 +1,28 @@
+{
+  "heading": "Work Experience",
+  "summary": "Hands-on experience delivering features, improving developer workflows, and collaborating with cross-functional teams.",
+  "roles": [
+    {
+      "title": "Software Engineering Intern",
+      "organization": "BrightLabs",
+      "location": "Accra, Ghana",
+      "period": "May 2025 - Aug 2025",
+      "highlights": [
+        "Built reusable Flask and Jinja components for internal tools.",
+        "Automated weekly reporting workflows and reduced manual update time.",
+        "Collaborated with product and QA to ship production bug fixes."
+      ]
+    },
+    {
+      "title": "Student Developer",
+      "organization": "Campus Innovation Hub",
+      "location": "Remote",
+      "period": "Jan 2024 - Present",
+      "highlights": [
+        "Maintains a student portfolio platform with peer contributors.",
+        "Improved onboarding docs and code review standards.",
+        "Led sprint demos and coordinated feature handoffs."
+      ]
+    }
+  ]
+}
