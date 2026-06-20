@@ -12,12 +12,18 @@ h1, h2, h3, h4, h5, h6,
 .nav-dropdown__toggle,
 .team-card__name,
 .social-link__label,
+.profile-eyebrow,
+.hero-link,
+.section-link,
 .portfolio-section h2 {
     font-family: var(--font-heading);
 }
 
 body {
-    background-color: #f5f5f9;
+    background-color: #f4f7fb;
+    background-image:
+        radial-gradient(circle at top left, rgba(28, 83, 159, 0.08), transparent 32rem),
+        linear-gradient(180deg, #f8fbff 0%, #f4f7fb 38%, #eef4fb 100%);
     background-size: cover;
     width: auto;
     overflow-x: hidden;
@@ -236,10 +242,41 @@ a {
 }
 
 .profile {
-    background-color: #1d539f !important;
+    background:
+        linear-gradient(135deg, rgba(29, 83, 159, 0.95), rgba(19, 56, 113, 0.98)),
+        #1d539f !important;
     text-align: center;
-    padding: 48px 24px 56px;
+    padding: 56px 24px 72px;
     margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile::before,
+.profile::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.profile::before {
+    width: 220px;
+    height: 220px;
+    left: -72px;
+    top: -92px;
+}
+
+.profile::after {
+    width: 170px;
+    height: 170px;
+    right: -48px;
+    bottom: -76px;
+}
+
+.profile > * {
+    position: relative;
+    z-index: 1;
 }
 
 .profile h1 {
@@ -256,6 +293,15 @@ a {
     margin: 8px 0 0;
 }
 
+.profile-eyebrow {
+    margin: 0 0 10px;
+    color: #bfdbfe;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
 .profile img {
     border-radius: 50%;
     width: 200px;
@@ -264,6 +310,8 @@ a {
     object-position: center top;
     display: block;
     margin: 0 auto 24px;
+    border: 5px solid rgba(255, 255, 255, 0.88);
+    box-shadow: 0 18px 36px rgba(7, 24, 55, 0.28);
 }
 
 .profile .profile-picture {
@@ -271,22 +319,35 @@ a {
 }
 
 .portfolio {
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    padding: 56px 24px 88px;
 }
 
 .portfolio-section {
-    margin-bottom: 56px;
+    margin-bottom: 64px;
+    scroll-margin-top: 32px;
 }
 
 .portfolio-section h2 {
     color: #1C539F;
-    font-size: 32px;
-    margin: 0 0 20px;
-    padding-bottom: 8px;
-    border-bottom: 3px solid #dbeafe;
-    letter-spacing: -0.01em;
+    font-size: 34px;
+    margin: 0 0 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #d8e6f8;
+    letter-spacing: 0;
+    position: relative;
+}
+
+.portfolio-section h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 74px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #1C539F, #58a6ff);
 }
 
 .portfolio-section p {
@@ -295,9 +356,23 @@ a {
 }
 
 .in-progress {
-    color: #6b7280;
+    color: #4b5563;
     font-style: italic;
     margin: 0;
+    padding: 22px 24px;
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px dashed #b9d5f5;
+    border-radius: 8px;
+}
+
+.portfolio-section > p:not([class]) {
+    max-width: 760px;
+    margin: 0;
+    padding: 24px 28px;
+    background: white;
+    border: 1px solid #e3edf9;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(28, 83, 159, 0.08);
 }
 
 .social-links {
@@ -425,6 +500,45 @@ a {
     padding: 16px;
 }
 
+.photo-card figcaption {
+    display: grid;
+    gap: 6px;
+}
+
+.photo-card figcaption strong {
+    color: #0f172a;
+    font-size: 16px;
+}
+
+.photo-card figcaption span {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.placeholder-image {
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+    background:
+        linear-gradient(135deg, rgba(28, 83, 159, 0.14), rgba(88, 166, 255, 0.18)),
+        repeating-linear-gradient(135deg, #f8fbff 0 12px, #edf5ff 12px 24px);
+    border: 1px solid #d8e6f8;
+    color: #1C539F;
+}
+
+.placeholder-image span {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #c7def8;
+    box-shadow: 0 10px 24px rgba(28, 83, 159, 0.14);
+    font-weight: 800;
+}
+
 .hobby-card__body h3 {
     margin: 0 0 8px;
     color: #1C539F;
@@ -464,6 +578,362 @@ a {
     margin: 0;
 }
 
+.experience-list,
+.education-list {
+    display: grid;
+    gap: 18px;
+}
+
+.experience-item,
+.education-item,
+.hobby-item {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid #e1ebf7;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(28, 83, 159, 0.08);
+}
+
+.experience-item,
+.education-item {
+    padding: 24px 28px 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-item::before,
+.education-item::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: linear-gradient(180deg, #1C539F, #58a6ff);
+}
+
+.experience-item__header,
+.education-item__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 10px;
+}
+
+.experience-item__position,
+.education-item__degree,
+.hobby-item__title {
+    margin: 0;
+    color: #0f172a;
+    font-size: 20px;
+    line-height: 1.3;
+}
+
+.experience-item__duration,
+.education-item__graduation {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: #eef6ff;
+    color: #1C539F;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.experience-item__company,
+.education-item__school {
+    margin: 0 0 12px;
+    color: #475569;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.experience-item__description,
+.education-item__details {
+    margin: 0;
+    color: #334155;
+}
+
+.experience-item__description:empty {
+    display: none;
+}
+
+.hobbies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.hobby-item {
+    padding: 22px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hobby-item:hover {
+    transform: translateY(-3px);
+    border-color: #bfdbfe;
+    box-shadow: 0 16px 32px rgba(28, 83, 159, 0.12);
+}
+
+.hobby-item__title {
+    color: #1C539F;
+    margin-bottom: 10px;
+}
+
+.hobby-item__description {
+    margin: 0;
+    color: #475569;
+}
+
+.hobbies-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 28px;
+    background: white;
+    border: 1px solid #e3edf9;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(28, 83, 159, 0.08);
+}
+
+.hobbies-preview p {
+    margin: 0;
+    color: #334155;
+}
+
+.section-link,
+.hero-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.section-link {
+    flex-shrink: 0;
+    padding: 12px 18px;
+    background: #1C539F;
+    color: white;
+    box-shadow: 0 10px 20px rgba(28, 83, 159, 0.18);
+}
+
+.hero-link {
+    margin-top: 22px;
+    padding: 11px 18px;
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.section-link:hover,
+.hero-link:hover {
+    transform: translateY(-2px);
+}
+
+.section-link:hover {
+    background: #16427e;
+}
+
+.hero-link:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.hobbies-hero h1 {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.hobbies-page {
+    max-width: 1080px;
+}
+
+.hobby-feature-list {
+    display: grid;
+    gap: 22px;
+}
+
+.hobby-feature-card {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.85fr) 1fr;
+    gap: 28px;
+    align-items: stretch;
+    padding: 22px;
+    background: white;
+    border: 1px solid #e1ebf7;
+    border-radius: 8px;
+    box-shadow: 0 14px 30px rgba(28, 83, 159, 0.09);
+}
+
+.hobby-feature-card__media {
+    display: grid;
+    gap: 12px;
+    min-height: 230px;
+}
+
+.hobby-feature-card__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #d8e6f8;
+    box-shadow: 0 10px 22px rgba(28, 83, 159, 0.1);
+}
+
+.hobby-feature-card__media--2,
+.hobby-feature-card__media--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.hobby-feature-card__media--3 img:first-child {
+    grid-row: span 2;
+}
+
+.placeholder-image--small {
+    min-height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hobby-feature-card__body {
+    align-self: center;
+}
+
+.hobby-feature-card__label {
+    margin: 0 0 10px;
+    color: #1C539F;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hobby-feature-card h3 {
+    margin: 0 0 12px;
+    color: #0f172a;
+    font-size: 26px;
+    line-height: 1.2;
+}
+
+.hobby-feature-card__body p:last-child {
+    margin: 0;
+    color: #475569;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.travel-map {
+    padding: 24px;
+    background: white;
+    border: 1px solid #e1ebf7;
+    border-radius: 8px;
+    box-shadow: 0 14px 30px rgba(28, 83, 159, 0.09);
+}
+
+.travel-map__canvas {
+    position: relative;
+    min-height: 480px;
+    overflow: hidden;
+    border-radius: 8px;
+    background:
+        radial-gradient(circle at 18% 22%, rgba(88, 166, 255, 0.2), transparent 28%),
+        radial-gradient(circle at 74% 45%, rgba(28, 83, 159, 0.12), transparent 30%),
+        linear-gradient(180deg, #dceeff 0%, #eef7ff 100%);
+    border: 1px solid #cfe2f7;
+    box-shadow: 0 10px 24px rgba(28, 83, 159, 0.1);
+}
+
+.travel-map__canvas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(28, 83, 159, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 83, 159, 0.09) 1px, transparent 1px);
+    background-size: 16.666% 25%, 16.666% 25%;
+}
+
+.travel-map__world {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(28, 83, 159, 0.28), rgba(88, 166, 255, 0.36));
+    filter: drop-shadow(0 16px 26px rgba(28, 83, 159, 0.16));
+    opacity: 0.95;
+    -webkit-mask: url("../img/world-map.svg") center / contain no-repeat;
+    mask: url("../img/world-map.svg") center / contain no-repeat;
+}
+
+.travel-map__plot {
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 50%;
+    aspect-ratio: 2000 / 857;
+    transform: translateY(-50%);
+}
+
+.travel-region {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(28, 83, 159, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    box-shadow: 0 0 0 2px rgba(28, 83, 159, 0.1), 0 10px 20px rgba(28, 83, 159, 0.12);
+    z-index: 2;
+}
+
+.travel-region:nth-of-type(even) {
+    background: rgba(88, 166, 255, 0.32);
+}
+
+.travel-pin {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    display: grid;
+    place-items: center;
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.travel-pin__dot {
+    display: block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #1C539F;
+    border: 1px solid white;
+    box-shadow: 0 0 0 1px rgba(28, 83, 159, 0.18), 0 2px 5px rgba(28, 83, 159, 0.16);
+}
+
+.travel-map__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.travel-map__legend span {
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #eef6ff;
+    color: #1C539F;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #d8e6f8;
+}
+
 @media (max-width: 768px) {
     .nav-content {
         flex-direction: column;
@@ -476,5 +946,60 @@ a {
 
     .profile h1 {
         font-size: 36px;
+    }
+
+    .portfolio {
+        padding: 40px 18px 64px;
+    }
+
+    .portfolio-section {
+        margin-bottom: 48px;
+    }
+
+    .portfolio-section h2 {
+        font-size: 28px;
+    }
+
+    .portfolio-section > p:not([class]),
+    .experience-item,
+    .education-item {
+        padding: 20px;
+    }
+
+    .experience-item__header,
+    .education-item__header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .experience-item__duration,
+    .education-item__graduation {
+        align-self: flex-start;
+    }
+
+    .hobbies-preview,
+    .hobby-feature-card {
+        grid-template-columns: 1fr;
+    }
+
+    .hobbies-preview {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hobby-feature-card__media {
+        min-height: 260px;
+    }
+
+    .travel-map {
+        padding: 14px;
+    }
+
+    .travel-map__canvas {
+        min-height: 560px;
+    }
+
+    .travel-map__legend {
+        gap: 8px;
     }
 }

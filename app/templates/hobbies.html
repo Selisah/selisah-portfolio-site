@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="profile hobbies-hero">
+    <p class="profile-eyebrow">Jessica's hobbies</p>
+    <h1>What I Like Outside of Class</h1>
+    <p class="profile-subtitle">Concerts, computers, good food, and a growing travel list.</p>
+    <a class="hero-link" href="{{ url_for('jessica') }}">Back to portfolio</a>
+</section>
+
+<main class="portfolio hobbies-page">
+    <section class="portfolio-section">
+        <h2>Hobbies</h2>
+        <div class="hobby-feature-list">
+            {% for hobby in profile.hobbies %}
+            <article class="hobby-feature-card">
+                <div class="hobby-feature-card__media hobby-feature-card__media--{{ hobby.images|length }}">
+                    {% for image in hobby.images %}
+                    <img src="{{ url_for('static', filename='img/' + image) }}" alt="{{ hobby.hobby }} image {{ loop.index }}">
+                    {% endfor %}
+                </div>
+                <div class="hobby-feature-card__body">
+                    <p class="hobby-feature-card__label">Hobby {{ loop.index }}</p>
+                    <h3>{{ hobby.hobby }}</h3>
+                    <p>{{ hobby.description }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="portfolio-section travel-section">
+        <h2>Cities I Have Visited</h2>
+        <div class="travel-map" aria-label="Map of cities Jessica has visited">
+            <div class="travel-map__canvas" role="img" aria-label="Map with dots on each city Jessica has visited">
+                <div class="travel-map__plot">
+                    <div class="travel-map__world" aria-hidden="true"></div>
+                    {% for region in profile.visited_regions %}
+                    <span
+                        class="travel-region"
+                        style="--x: {{ region.x }}%; --y: {{ region.y }}%; --size: {{ region.size }}%;"
+                        title="{{ region.region }}: {{ region.places }}"></span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="travel-map__legend" aria-label="Visited cities list">
+                {% for place in profile.visited_cities %}
+                <span>{{ place.city }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
