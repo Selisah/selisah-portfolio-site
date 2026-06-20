@@ -1,0 +1,28 @@
+{% macro experience_item(position, company, duration, description) %}
+<article class="experience-item">
+    <div class="experience-item__header">
+        <h3 class="experience-item__position">{{ position }}</h3>
+        <p class="experience-item__duration">{{ duration }}</p>
+    </div>
+    <p class="experience-item__company">{{ company }}</p>
+    <p class="experience-item__description">{{ description }}</p>
+</article>
+{% endmacro %}
+
+{% macro education_item(degree, school, graduation, details) %}
+<article class="education-item">
+    <div class="education-item__header">
+        <h3 class="education-item__degree">{{ degree }}</h3>
+        <p class="education-item__graduation">{{ graduation }}</p>
+    </div>
+    <p class="education-item__school">{{ school }}</p>
+    <p class="education-item__details">{{ details }}</p>
+</article>
+{% endmacro %}
+
+{% macro hobby_item(hobby, description) %}
+<article class="hobby-item">
+    <h3 class="hobby-item__title">{{ hobby }}</h3>
+    <p class="hobby-item__description">{{ description }}</p>
+</article>
+{% endmacro %}

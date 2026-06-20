@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block content %}
 <section class="profile">
@@ -39,6 +40,35 @@
                 {% endfor %}
             </div>
         </div>
+        {% elif section.id == "photos" %}
+        <div class="photo-grid photo-grid--placeholders">
+            {% for photo in profile.photos %}
+            <figure class="photo-card photo-card--placeholder">
+                <img src="{{ url_for('static', filename='img/' + photo.image) }}" alt="{{ photo.title }}">
+                <figcaption>
+                    <strong>{{ photo.title }}</strong>
+                    <span>{{ photo.caption }}</span>
+                </figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+        {% elif section.id == "experience" %}
+        <div class="experience-list">
+            {% for item in profile.experience %}
+            {{ macros.experience_item(item.position, item.company, item.duration, item.description) }}
+            {% endfor %}
+        </div>
+        {% elif section.id == "education" %}
+        <div class="education-list">
+            {% for item in profile.education %}
+            {{ macros.education_item(item.degree, item.school, item.graduation, item.details) }}
+            {% endfor %}
+        </div>
+        {% elif section.id == "hobbies" %}
+        <article class="hobbies-preview">
+            <p>Music, computer projects, and food adventures have their own little corner now.</p>
+            <a class="section-link" href="/jessica/hobbies">Explore my hobbies</a>
+        </article>
         {% else %}
         <p class="in-progress">In progress</p>
         {% endif %}
