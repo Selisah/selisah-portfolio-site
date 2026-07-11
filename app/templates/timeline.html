@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Timeline{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <h1>Timeline</h1>
+    <p class="section-intro">Share a short update. Posts are saved through the timeline API and shown newest first.</p>
+
+    <article class="content-card">
+        <h2>Create a Timeline Post</h2>
+        <form id="timeline-form" class="timeline-form">
+            <label class="admin-label" for="timeline-name">Name</label>
+            <input class="admin-input" id="timeline-name" name="name" type="text" required>
+
+            <label class="admin-label" for="timeline-email">Email</label>
+            <input class="admin-input" id="timeline-email" name="email" type="email" required>
+
+            <label class="admin-label" for="timeline-content">Content</label>
+            <textarea class="json-editor" id="timeline-content" name="content" rows="4" required></textarea>
+
+            <p id="timeline-status" class="empty-state" hidden></p>
+            <div class="admin-actions">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </article>
+
+    <article class="content-card">
+        <h2>Timeline Posts</h2>
+        {% if timeline_posts %}
+        <ul class="timeline-list">
+            {% for post in timeline_posts %}
+            <li class="timeline-post">
+                <div class="timeline-post-header">
+                    <strong>{{ post.name }}</strong>
+                    <span>{{ post.email }}</span>
+                </div>
+                <p>{{ post.content }}</p>
+                <small>{{ post.created_at }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty-state">No timeline posts yet. Be the first to share one!</p>
+        {% endif %}
+    </article>
+</section>
+
+<script>
+    (function () {
+        const form = document.getElementById("timeline-form");
+        const status = document.getElementById("timeline-status");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            status.hidden = false;
+            status.textContent = "Submitting...";
+            status.className = "empty-state";
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch("{{ url_for('post_time_line_post') }}", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error("Request failed with status " + response.status);
+                }
+
+                status.textContent = "Post created. Reloading...";
+                status.className = "success-note";
+                window.location.reload();
+            } catch (error) {
+                status.textContent = "Could not create post. Please try again.";
+                status.className = "error-note";
+            }
+        });
+    })();
+</script>
+{% endblock %}

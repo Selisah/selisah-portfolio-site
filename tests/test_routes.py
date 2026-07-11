@@ -1,3 +1,6 @@
+import importlib
+import os
+import sys
 import unittest
 from unittest.mock import patch
 
@@ -9,8 +12,16 @@ class TestRoutes(unittest.TestCase):
         app.config["TESTING"] = True
         self.client = app.test_client()
 
+    def test_app_falls_back_to_sqlite_when_mysql_config_is_missing(self):
+        sys.modules.pop("app", None)
+        with patch.dict(os.environ, {"MYSQL_DATABASE": "", "MYSQL_USER": "", "MYSQL_PASSWORD": "", "MYSQL_HOST": ""}, clear=False):
+            module = importlib.import_module("app")
+
+        self.assertIsNotNone(module.db)
+        self.assertEqual(module.db.__class__.__name__, "SqliteDatabase")
+
     def test_route_smoke_pages_return_200(self):
-        routes = ["/", "/about", "/work", "/education", "/hobbies", "/map", "/admin"]
+        routes = ["/", "/about", "/work", "/education", "/hobbies", "/map", "/timeline", "/admin"]
 
         for route in routes:
             with self.subTest(route=route):
@@ -22,9 +33,40 @@ class TestRoutes(unittest.TestCase):
         body = response.get_data(as_text=True)
 
         self.assertEqual(response.status_code, 200)
-        for route in ["/", "/about", "/work", "/education", "/map", "/admin"]:
+        for route in ["/", "/about", "/work", "/education", "/map", "/timeline", "/admin"]:
             with self.subTest(route=route):
                 self.assertIn(f'href="{route}"', body)
+
+    def test_timeline_page_renders_form_and_posts_section(self):
+        response = self.client.get("/timeline")
+        body = response.get_data(as_text=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Create a Timeline Post", body)
+        self.assertIn('id="timeline-form"', body)
+        self.assertIn("Timeline Posts", body)
+
+    def test_timeline_api_create_and_list_posts(self):
+        create_response = self.client.post(
+            "/api/timeline_post",
+            data={
+                "name": "Test User",
+                "email": "test@example.com",
+                "content": "Hello from unit test",
+            },
+        )
+        self.assertEqual(create_response.status_code, 200)
+        created = create_response.get_json()
+        self.assertEqual(created["name"], "Test User")
+        self.assertEqual(created["content"], "Hello from unit test")
+
+        list_response = self.client.get("/api/timeline_post")
+        self.assertEqual(list_response.status_code, 200)
+        posts = list_response.get_json()["timeline_posts"]
+        self.assertTrue(any(post["content"] == "Hello from unit test" for post in posts))
+
+        page_response = self.client.get("/timeline")
+        self.assertIn("Hello from unit test", page_response.get_data(as_text=True))
 
     def test_about_page_sets_about_nav_link_active(self):
         response = self.client.get("/about")

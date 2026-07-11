@@ -5,9 +5,61 @@ import urllib.request
 from flask import Flask, render_template, request, redirect, url_for
 from dotenv import load_dotenv
 from app.data_loader import load_json_file, load_nav_items, save_json_file
+from datetime import datetime
+from peewee import *
+from playhouse.shortcuts import model_to_dict
+
 
 load_dotenv()
 app = Flask(__name__)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATABASE_PATH = os.path.join(BASE_DIR, "instance", "portfolio.sqlite3")
+
+
+def _create_database():
+    database_name = os.getenv("MYSQL_DATABASE") or ""
+    database_user = os.getenv("MYSQL_USER") or ""
+    database_password = os.getenv("MYSQL_PASSWORD") or ""
+    database_host = os.getenv("MYSQL_HOST") or ""
+
+    if all([database_name, database_user, database_password, database_host]):
+        try:
+            mysql_db = MySQLDatabase(
+                database_name,
+                user=database_user,
+                password=database_password,
+                host=database_host,
+                port=3306,
+            )
+            mysql_db.connect(reuse_if_open=True)
+            mysql_db.close()
+            return mysql_db
+        except Exception:
+            pass
+
+    os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
+    return SqliteDatabase(DATABASE_PATH)
+
+
+db = _create_database()
+mydb = db
+
+print(mydb)
+
+class TimelinePost(Model):
+    name = CharField()
+    email = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.now)
+
+    class Meta:
+        database = db
+
+
+db.connect(reuse_if_open=True)
+db.create_tables([TimelinePost], safe=True)
+
 
 SECTION_FILE_MAP = {
     "education": "education.json",
@@ -277,3 +329,36 @@ def admin_save(section):
         return redirect(url_for("admin", error=section))
 
     return redirect(url_for("admin", saved=section))
+
+
+@app.route('/timeline')
+def timeline():
+    timeline_posts = [
+        model_to_dict(p)
+        for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
+    ]
+    return render_template(
+        'timeline.html',
+        title="Timeline",
+        timeline_posts=timeline_posts,
+    )
+
+
+@app.route('/api/timeline_post', methods=['POST'])
+def post_time_line_post():
+    name = request.form['name']
+    email = request.form['email']
+    content = request.form['content']
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+
+    return model_to_dict(timeline_post)
+
+
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+    return {
+        'timeline_posts': [
+            model_to_dict(p)
+            for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }

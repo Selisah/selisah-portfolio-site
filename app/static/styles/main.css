@@ -300,3 +300,41 @@ body {
     background: #fee2e2;
     color: #991b1b;
 }
+
+.timeline-form {
+    display: grid;
+    gap: 4px;
+}
+
+.timeline-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.timeline-post {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
+    background: #f8fafc;
+}
+
+.timeline-post-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-bottom: 8px;
+    color: #1f2937;
+}
+
+.timeline-post p {
+    margin: 0 0 8px;
+    line-height: 1.5;
+    color: #374151;
+}
+
+.timeline-post small {
+    color: #6b7280;
+}

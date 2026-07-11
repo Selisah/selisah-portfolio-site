@@ -5,3 +5,8 @@ __pycache__
 python3-virtualenv
 flask.sqlite
 .DS_Store
+.worktrees/
+instance/
+venv/
+.postman/
+postman/
