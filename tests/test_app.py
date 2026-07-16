@@ -25,6 +25,12 @@ class AppTestCase(unittest.TestCase):
         assert "<title>Portfolio</title>" in html
         # Additional home page tests
         assert "Portfolio" in html
+        # Check nav links are present
+        assert "/about" in html
+        assert "/work" in html
+        assert "/education" in html
+        assert "/map" in html
+        assert "/timeline" in html
 
     def test_timeline(self):
         response = self.client.get("/api/timeline_post")
