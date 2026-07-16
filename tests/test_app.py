@@ -1,12 +1,14 @@
+# tests/test_app.py
+
 import unittest
 import os
 
-os.environ["TESTING"] = "true"
+os.environ['TESTING'] = 'true'
 
 from app import app, db, TimelinePost
 
 
-class TestApp(unittest.TestCase):
+class AppTestCase(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
         db.connect(reuse_if_open=True)
@@ -16,93 +18,85 @@ class TestApp(unittest.TestCase):
     def tearDown(self):
         db.drop_tables([TimelinePost])
 
-    # ---- Tests for GET /api/timeline_post ----
+    def test_home(self):
+        response = self.client.get("/")
+        assert response.status_code == 200
+        html = response.get_data(as_text=True)
+        assert "<title>Portfolio</title>" in html
+        # Additional home page tests
+        assert "Portfolio" in html
 
-    def test_get_timeline_post_empty(self):
-        """Test GET returns empty list when no posts exist."""
+    def test_timeline(self):
         response = self.client.get("/api/timeline_post")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json["timeline_posts"], [])
-
-    def test_get_timeline_post_with_data(self):
-        """Test GET returns posts after creating some."""
-        TimelinePost.create(name="Test User", email="test@example.com", content="Test post")
-        response = self.client.get("/api/timeline_post")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json["timeline_posts"]), 1)
-        self.assertEqual(response.json["timeline_posts"][0]["name"], "Test User")
-
-    # ---- Tests for POST /api/timeline_post ----
-
-    def test_post_timeline_post(self):
-        """Test creating a valid timeline post."""
-        response = self.client.post("/api/timeline_post", data={
+        assert response.status_code == 200
+        assert response.is_json
+        json = response.get_json()
+        assert "timeline_posts" in json
+        assert len(json["timeline_posts"]) == 0
+        # Additional GET and POST api tests
+        # Test POST creates a timeline post
+        post_response = self.client.post("/api/timeline_post", data={
             "name": "Test User",
             "email": "test@example.com",
             "content": "This is a test post"
         })
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json["name"], "Test User")
-        self.assertEqual(response.json["email"], "test@example.com")
-        self.assertEqual(response.json["content"], "This is a test post")
+        assert post_response.status_code == 200
+        assert post_response.json["name"] == "Test User"
+        assert post_response.json["email"] == "test@example.com"
+        assert post_response.json["content"] == "This is a test post"
 
-    def test_post_timeline_post_persists(self):
-        """Test that a posted timeline post is saved to the database."""
-        self.client.post("/api/timeline_post", data={
-            "name": "Persist User",
-            "email": "persist@example.com",
-            "content": "Checking persistence"
-        })
-        posts = TimelinePost.select()
-        self.assertEqual(posts.count(), 1)
-        self.assertEqual(posts[0].name, "Persist User")
+        # Test GET now returns the created post
+        get_response = self.client.get("/api/timeline_post")
+        assert get_response.status_code == 200
+        json = get_response.get_json()
+        assert len(json["timeline_posts"]) == 1
+        assert json["timeline_posts"][0]["name"] == "Test User"
 
-    # ---- Tests for the Timeline page ----
+        # Additional timeline page tests
+        # Test timeline page loads and shows posts
+        page_response = self.client.get("/timeline")
+        assert page_response.status_code == 200
+        page_html = page_response.get_data(as_text=True)
+        assert "Timeline" in page_html
 
-    def test_timeline_page(self):
-        """Test that the /timeline page loads successfully."""
-        response = self.client.get("/timeline")
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Timeline", response.data)
-
-    # ---- Edge case / error tests (TDD) ----
-
-    def test_post_timeline_post_missing_name(self):
-        """Test POST with missing name returns 400."""
+    def test_malformed_timeline_post(self):
+        # Test missing name
         response = self.client.post("/api/timeline_post", data={
-            "email": "test@example.com",
-            "content": "Missing name"
+            "email": "john@example.com",
+            "content": "Hello world, I'm John!"
         })
-        self.assertEqual(response.status_code, 400)
-        self.assertIn(b"Invalid name", response.data)
+        assert response.status_code == 400
+        html = response.get_data(as_text=True)
+        assert "Invalid name" in html
 
-    def test_post_timeline_post_missing_content(self):
-        """Test POST with missing content returns 400."""
+        # Test empty content
         response = self.client.post("/api/timeline_post", data={
-            "name": "Test User",
-            "email": "test@example.com"
+            "name": "John Doe",
+            "email": "john@example.com",
+            "content": ""
         })
-        self.assertEqual(response.status_code, 400)
-        self.assertIn(b"Invalid content", response.data)
+        assert response.status_code == 400
+        html = response.get_data(as_text=True)
+        assert "Invalid content" in html
 
-    def test_post_timeline_post_invalid_email(self):
-        """Test POST with invalid email returns 400."""
+        # Test invalid email
         response = self.client.post("/api/timeline_post", data={
-            "name": "Test User",
+            "name": "John Doe",
             "email": "not-an-email",
-            "content": "Bad email test"
+            "content": "Hello world, I'm John!"
         })
-        self.assertEqual(response.status_code, 400)
-        self.assertIn(b"Invalid email", response.data)
+        assert response.status_code == 400
+        html = response.get_data(as_text=True)
+        assert "Invalid email" in html
 
-    def test_post_timeline_post_missing_email(self):
-        """Test POST with missing email returns 400."""
+        # Test missing email
         response = self.client.post("/api/timeline_post", data={
-            "name": "Test User",
-            "content": "Missing email"
+            "name": "John Doe",
+            "content": "Hello world, I'm John!"
         })
-        self.assertEqual(response.status_code, 400)
-        self.assertIn(b"Invalid email", response.data)
+        assert response.status_code == 400
+        html = response.get_data(as_text=True)
+        assert "Invalid email" in html
 
 
 if __name__ == "__main__":
