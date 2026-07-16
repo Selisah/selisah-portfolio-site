@@ -18,6 +18,9 @@ DATABASE_PATH = os.path.join(BASE_DIR, "instance", "portfolio.sqlite3")
 
 
 def _create_database():
+    if os.getenv("TESTING") == "true":
+        return SqliteDatabase(":memory:")
+
     database_name = os.getenv("MYSQL_DATABASE") or ""
     database_user = os.getenv("MYSQL_USER") or ""
     database_password = os.getenv("MYSQL_PASSWORD") or ""
@@ -346,9 +349,19 @@ def timeline():
 
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
+    import re
+    from flask import jsonify
+    name = request.form.get('name', '')
+    email = request.form.get('email', '')
+    content = request.form.get('content', '')
+
+    if not name or name.strip() == '':
+        return jsonify({"error": "Invalid name"}), 400
+    if not email or not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+        return jsonify({"error": "Invalid email"}), 400
+    if not content or content.strip() == '':
+        return jsonify({"error": "Invalid content"}), 400
+
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
     return model_to_dict(timeline_post)
