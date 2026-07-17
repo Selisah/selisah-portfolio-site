@@ -17,6 +17,8 @@ class AppTestCase(unittest.TestCase):
 
     def tearDown(self):
         db.drop_tables([TimelinePost])
+        # Recreate empty tables so other test modules still have a schema
+        db.create_tables([TimelinePost])
 
     def test_home(self):
         response = self.client.get("/")
