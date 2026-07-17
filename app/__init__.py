@@ -1,8 +1,9 @@
 import os
 import json
+import re
 import urllib.parse
 import urllib.request
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from dotenv import load_dotenv
 from app.data_loader import load_json_file, load_nav_items, save_json_file
 from datetime import datetime
@@ -349,9 +350,6 @@ def timeline():
 
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    import re
-    from flask import jsonify
-
     name = request.form.get('name', '')
     email = request.form.get('email', '')
     content = request.form.get('content', '')

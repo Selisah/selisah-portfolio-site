@@ -1,11 +1,11 @@
-import os
 import unittest
+import os
 from datetime import datetime, timedelta
 
 os.environ["TESTING"] = "true"
 
 from peewee import SqliteDatabase
-from app import TimelinePost
+from app import TimelinePost, db as app_db
 
 MODELS = [TimelinePost]
 test_db = SqliteDatabase(":memory:")
@@ -13,15 +13,17 @@ test_db = SqliteDatabase(":memory:")
 
 class TestTimelinePost(unittest.TestCase):
     def setUp(self):
-        self._ctx = test_db.bind_ctx(MODELS)
-        self._ctx.__enter__()
-        test_db.connect(reuse_if_open=True)
+        test_db.bind(MODELS, bind_refs=False, bind_backrefs=False)
+        test_db.connect()
         test_db.create_tables(MODELS)
 
     def tearDown(self):
         test_db.drop_tables(MODELS)
         test_db.close()
-        self._ctx.__exit__(None, None, None)
+        # Restore app database binding so other test modules keep working
+        app_db.bind(MODELS, bind_refs=False, bind_backrefs=False)
+        app_db.connect(reuse_if_open=True)
+        app_db.create_tables(MODELS, safe=True)
 
     def test_timeline_post(self):
         """Test that we can create and retrieve a timeline post."""
@@ -29,7 +31,7 @@ class TestTimelinePost(unittest.TestCase):
             name="John Doe",
             email="john@example.com",
             content="Hello world, I'm John!",
-            created_at=datetime.now() - timedelta(seconds=5),
+            created_at=datetime.now() - timedelta(seconds=1),
         )
         assert first_post.id == 1
 
