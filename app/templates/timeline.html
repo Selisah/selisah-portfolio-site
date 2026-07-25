@@ -67,6 +67,9 @@
                 });
 
                 if (!response.ok) {
+                    if (response.status === 429) {
+                        throw new Error("Rate limit reached. Please wait 1 minute before posting again.");
+                    }
                     throw new Error("Request failed with status " + response.status);
                 }
 
@@ -74,7 +77,7 @@
                 status.className = "success-note";
                 window.location.reload();
             } catch (error) {
-                status.textContent = "Could not create post. Please try again.";
+                status.textContent = error.message || "Could not create post. Please try again.";
                 status.className = "error-note";
             }
         });
