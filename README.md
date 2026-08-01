@@ -74,7 +74,7 @@ You'll now be able to access the website at `localhost:5000` or `127.0.0.1:5000`
 
 ## Data files and map styling
 
-Page content and navigation are loaded from JSON files in `data/`:
+Page content and navigation are loaded from JSON files in `app/data/`:
 - `about.json`
 - `work.json`
 - `education.json`

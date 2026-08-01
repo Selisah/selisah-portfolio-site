@@ -10,3 +10,5 @@ instance/
 venv/
 .postman/
 postman/
+.superpowers/
+/planet/

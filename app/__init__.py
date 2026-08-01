@@ -6,6 +6,7 @@ import urllib.request
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from dotenv import load_dotenv
 from app.data_loader import load_json_file, load_nav_items, save_json_file
+from app.planet import planet_bp
 from datetime import datetime
 from peewee import *
 from playhouse.shortcuts import model_to_dict
@@ -13,6 +14,7 @@ from playhouse.shortcuts import model_to_dict
 
 load_dotenv()
 app = Flask(__name__)
+app.register_blueprint(planet_bp)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASE_PATH = os.path.join(BASE_DIR, "instance", "portfolio.sqlite3")

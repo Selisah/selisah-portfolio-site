@@ -1,0 +1,25 @@
+/* ---------------------------------------------------------------------------- */
+/*                                PAGE LOAD CSS                                 */
+/* ---------------------------------------------------------------------------- */
+
+/* Hide cursors at load */
+[cursor-icon="grab"],
+[cursor-icon="grabbing"],
+.cursor-tag {
+  opacity: 0;
+}
+
+/* Show intro layer at page load */
+.c-intro {
+  display: block;
+}
+
+/* Hide browser cursor at page load */
+.body {
+  cursor: none;
+}
+
+/* Hide injected Webflow brand badge */
+.w-webflow-badge {
+  display: none !important;
+}
