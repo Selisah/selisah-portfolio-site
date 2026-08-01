@@ -82,7 +82,21 @@ Page content and navigation are loaded from JSON files in `app/data/`:
 - `map_locations.json`
 - `site_nav.json`
 
-The map is intentionally styled with a white background, a light-green outline (`#66BB6A`), red markers, and dotted explicit connections between selected locations.
+Portfolio pages use Flask + Jinja with a dynamic navbar. The map page uses a small JS renderer for a sketch-style view: white background, light-green outline (`#66BB6A`), red markers, and dotted connectors between configured locations.
+
+## Testing
+
+Run the full local check with:
+
+```bash
+./run_test.sh
+```
+
+This runs the Python unittest suite under `tests/`, then (if the app is reachable) curl checks against `/api/timeline_post` (POST create + GET list).
+
+## Deploy
+
+Production uses Docker Compose (`docker-compose.prod.yml`) with nginx config in `user_conf.d/`. Redeploy on the droplet with `./redeploy-site.sh` (keep a copy in `/root` as well).
 
 ## Contributing
 
