@@ -92,7 +92,7 @@ Run the full local check with:
 ./run_test.sh
 ```
 
-This runs the Python unittest suite under `tests/`, then (if the app is reachable) curl checks against `/api/timeline_post` (POST create + GET list).
+This runs the Python unittest suite under `tests/` (pages, data loader, timeline API, and DB checks).
 
 ## Deploy
 

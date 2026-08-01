@@ -3,8 +3,8 @@ set -euo pipefail
 
 cd /opt/selisah-portfolio-site
 
-git fetch && git reset origin/main --hard
+git fetch origin
+git reset --hard origin/main
 
 docker compose -f docker-compose.prod.yml down
-
 docker compose -f docker-compose.prod.yml up -d --build
