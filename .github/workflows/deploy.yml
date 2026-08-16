@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Verify DigitalOcean Connection
+    name: Deploy Portfolio Site
     runs-on: ubuntu-latest
 
     steps:
@@ -28,5 +28,5 @@ jobs:
             StrictHostKeyChecking no
           EOF
 
-      - name: Print project root directory
-        run: ssh my-vps "cd ${{ secrets.PROJECT_ROOT }} && pwd"
+      - name: Deploy site
+        run: ssh my-vps "~/redeploy-site.sh"
