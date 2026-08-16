@@ -33,6 +33,7 @@ class AppTestCase(unittest.TestCase):
         assert "/education" in html
         assert "/map" in html
         assert "/timeline" in html
+        assert "I automatically test and deploy this portfolio with GitHub Actions." in html
 
     def test_timeline(self):
         response = self.client.get("/api/timeline_post")
